@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Calcolatore orientativo del fattore di rischio">
+  <title>RiskWise | Calcolo del fattore di rischio</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="container">
+    <p class="eyebrow">Privacy e sicurezza aziendale</p>
+    <h1>RiskWise</h1>
+    <p>Stima guidata del rischio con matrice probabilità × danno.</p>
+  </div>
+</header>
+<main id="contenuto" class="container">
+  <section class="panel" aria-labelledby="titolo-calcolo">
+    <h2 id="titolo-calcolo">Valuta uno scenario</h2>
+    <p id="nota-metodo">Il risultato è orientativo e non sostituisce il Documento di Valutazione dei Rischi.</p>
+    <form id="risk-form" novalidate aria-describedby="nota-metodo form-error">
+      <label for="hazard">Pericolo o attività osservata</label>
+      <textarea id="hazard" maxlength="300" placeholder="Esempio: movimentazione manuale di carichi"></textarea>
+      <div class="input-grid">
+        <div>
+          <label for="probability">Probabilità (P)</label>
+          <select id="probability" required>
+            <option value="">Seleziona</option>
+            <option value="1">1 - Raro</option>
+            <option value="2">2 - Improbabile</option>
+            <option value="3">3 - Possibile</option>
+            <option value="4">4 - Probabile</option>
+            <option value="5">5 - Quasi certo</option>
+          </select>
+        </div>
+        <div>
+          <label for="damage">Danno (D)</label>
+          <select id="damage" required>
+            <option value="">Seleziona</option>
+            <option value="1">1 - Trascurabile</option>
+            <option value="2">2 - Lieve</option>
+            <option value="3">3 - Significativo</option>
+            <option value="4">4 - Grave</option>
+            <option value="5">5 - Catastrofico</option>
+          </select>
+        </div>
+      </div>
+      <p id="form-error" class="error" role="alert"></p>
+      <div class="actions">
+        <button type="submit">Calcola rischio</button>
+        <button type="reset" class="secondary">Azzera</button>
+      </div>
+    </form>
+  </section>
+
+  <section id="result" class="result" aria-live="polite" tabindex="-1" hidden>
+    <h2>Esito della stima</h2>
+    <p>R = <strong id="score">-</strong></p>
+    <p>Classe: <strong id="level">-</strong></p>
+    <p id="priority"></p>
+  </section>
+
+  <section class="panel resources" aria-labelledby="titolo-guida">
+    <h2 id="titolo-guida">Guida e accesso mobile</h2>
+    <p>Scarica il documento esplicativo oppure acquisisci il QR code con lo smartphone.</p>
+    <a class="download" href="guida-rischio.pdf" download>Scarica la guida PDF</a>
+    <div id="qrcode" aria-label="QR code per aprire la guida"></div>
+  </section>
+</main>
+<footer class="site-footer">
+  <div class="container">Prototipo didattico - Paolo Cacciagrano, matricola 0312400173</div>
+</footer>
+<script src="qrcode.min.js" defer></script>
+<script src="app.js" defer></script>
+</body>
+</html>
