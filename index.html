@@ -3,25 +3,43 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Calcolatore orientativo del fattore di rischio">
+  <meta name="description" content="RiskWise: software mobile-friendly per la stima orientativa del fattore di rischio mediante matrice probabilità per danno.">
+  <meta name="theme-color" content="#12395b">
   <title>RiskWise | Calcolo del fattore di rischio</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<a class="skip-link" href="#contenuto">Vai al contenuto principale</a>
+
 <header class="site-header">
   <div class="container">
     <p class="eyebrow">Privacy e sicurezza aziendale</p>
     <h1>RiskWise</h1>
-    <p>Stima guidata del rischio con matrice probabilità × danno.</p>
+    <p class="lead">Stima guidata del rischio con matrice probabilità × danno.</p>
+    <p class="site-address">
+      Sito ufficiale:
+      <a href="https://paolocacciagrano.github.io/riskwise/">
+        https://paolocacciagrano.github.io/riskwise/
+      </a>
+    </p>
   </div>
 </header>
+
 <main id="contenuto" class="container">
   <section class="panel" aria-labelledby="titolo-calcolo">
     <h2 id="titolo-calcolo">Valuta uno scenario</h2>
-    <p id="nota-metodo">Il risultato è orientativo e non sostituisce il Documento di Valutazione dei Rischi.</p>
+    <p id="nota-metodo">
+      Il risultato è un indice orientativo di priorità. Non sostituisce la valutazione professionale,
+      il DVR o le metodologie specifiche previste per particolari rischi.
+    </p>
+
     <form id="risk-form" novalidate aria-describedby="nota-metodo form-error">
       <label for="hazard">Pericolo o attività osservata</label>
-      <textarea id="hazard" maxlength="300" placeholder="Esempio: movimentazione manuale di carichi"></textarea>
+      <textarea id="hazard" maxlength="300"
+        placeholder="Esempio: movimentazione manuale di carichi"
+        aria-describedby="hazard-help"></textarea>
+      <p id="hazard-help" class="help">Massimo 300 caratteri. Il testo resta nel browser e non viene trasmesso.</p>
+
       <div class="input-grid">
         <div>
           <label for="probability">Probabilità (P)</label>
@@ -34,6 +52,7 @@
             <option value="5">5 - Quasi certo</option>
           </select>
         </div>
+
         <div>
           <label for="damage">Danno (D)</label>
           <select id="damage" required>
@@ -46,7 +65,9 @@
           </select>
         </div>
       </div>
+
       <p id="form-error" class="error" role="alert"></p>
+
       <div class="actions">
         <button type="submit">Calcola rischio</button>
         <button type="reset" class="secondary">Azzera</button>
@@ -54,23 +75,72 @@
     </form>
   </section>
 
-  <section id="result" class="result" aria-live="polite" tabindex="-1" hidden>
+  <section id="result" class="result" aria-live="polite" aria-atomic="true" tabindex="-1" hidden>
     <h2>Esito della stima</h2>
-    <p>R = <strong id="score">-</strong></p>
-    <p>Classe: <strong id="level">-</strong></p>
-    <p id="priority"></p>
+    <dl class="result-grid">
+      <div><dt>Scenario</dt><dd id="scenario">Non specificato</dd></div>
+      <div><dt>Formula</dt><dd id="formula">-</dd></div>
+      <div><dt>Punteggio</dt><dd>R = <strong id="score">-</strong></dd></div>
+      <div><dt>Classe</dt><dd><strong id="level">-</strong></dd></div>
+    </dl>
+    <p id="priority" class="priority"></p>
+    <p id="boundary-note" class="boundary-note" hidden></p>
+  </section>
+
+  <section class="panel" aria-labelledby="titolo-matrice">
+    <h2 id="titolo-matrice">Criteri di classificazione</h2>
+    <div class="table-wrap" tabindex="0" aria-label="Tabella scorrevole delle classi di rischio">
+      <table>
+        <thead>
+          <tr><th>Intervallo</th><th>Classe</th><th>Priorità orientativa</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1-4</td><td>Basso</td><td>Mantenere le misure e monitorare.</td></tr>
+          <tr><td>5-9</td><td>Moderato</td><td>Programmare miglioramenti e controlli.</td></tr>
+          <tr><td>10-16</td><td>Alto</td><td>Intervenire in tempi brevi e rivalutare.</td></tr>
+          <tr><td>17-25</td><td>Critico</td><td>Controllare l'attività prima di procedere.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="help">
+      Valori uguali possono derivare da combinazioni diverse di probabilità e danno:
+      il punteggio deve sempre essere motivato e contestualizzato.
+    </p>
   </section>
 
   <section class="panel resources" aria-labelledby="titolo-guida">
-    <h2 id="titolo-guida">Guida e accesso mobile</h2>
+    <h2 id="titolo-guida">Guida, codice QR e sito HTTPS</h2>
     <p>Scarica il documento esplicativo oppure acquisisci il QR code con lo smartphone.</p>
-    <a class="download" href="guida-rischio.pdf" download>Scarica la guida PDF</a>
-    <div id="qrcode" aria-label="QR code per aprire la guida"></div>
+    <div class="resource-actions">
+      <a class="download" href="guida-rischio.pdf">Apri la guida PDF</a>
+      <a class="download secondary-link" href="guida-rischio.pdf" download>Scarica la guida PDF</a>
+    </div>
+    <div id="qrcode" aria-label="QR code che apre la guida RiskWise"></div>
+    <p class="canonical-url">
+      Indirizzo pubblico:
+      <a href="https://paolocacciagrano.github.io/riskwise/">
+        https://paolocacciagrano.github.io/riskwise/
+      </a>
+    </p>
+  </section>
+
+  <section class="panel disclaimer" aria-labelledby="titolo-limiti">
+    <h2 id="titolo-limiti">Limiti e uso responsabile</h2>
+    <p>
+      RiskWise è un prototipo didattico. Non certifica la conformità aziendale, non produce
+      automaticamente il Documento di Valutazione dei Rischi e non esonera i soggetti responsabili
+      dagli obblighi previsti dal D.Lgs. 81/2008.
+    </p>
   </section>
 </main>
+
 <footer class="site-footer">
-  <div class="container">Prototipo didattico - Paolo Cacciagrano, matricola 0312400173</div>
+  <div class="container">
+    <p>Prototipo didattico - Paolo Cacciagrano - matricola 0312400173</p>
+    <p><a href="https://paolocacciagrano.github.io/riskwise/">Sito RiskWise</a></p>
+  </div>
 </footer>
+
 <script src="qrcode.min.js" defer></script>
 <script src="app.js" defer></script>
 </body>
